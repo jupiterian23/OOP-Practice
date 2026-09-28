@@ -1,9 +1,9 @@
 # 🏦 Python OOP Banking System
 
-> 💻 A Python-based banking system demonstrating **Object-Oriented Programming (OOP)** concepts such as inheritance, polymorphism, custom exceptions, encapsulation, and transaction handling.
+> 💻 A Python-based banking system project demonstrating **Object-Oriented Programming (OOP)** concepts through account management, transactions, inheritance, polymorphism, and custom exception handling.
 
 ![Python](https://img.shields.io/badge/Python-3.x-3776AB?logo=python\&logoColor=white)
-![OOP](https://img.shields.io/badge/Concept-Object%20Oriented%20Programming-blue)
+![OOP](https://img.shields.io/badge/Concept-Object--Oriented%20Programming-blue)
 ![Status](https://img.shields.io/badge/Status-Completed-success)
 
 ---
@@ -12,48 +12,49 @@
 
 This project is a simple **Bank Account Management System built with Python**.
 
-It simulates common banking operations such as:
+It demonstrates how Object-Oriented Programming can be used to model different types of bank accounts and their transactions.
 
-* 💰 Creating bank accounts
-* 📊 Checking account balances
-* 💵 Depositing money
-* 💸 Withdrawing money
-* 🔄 Transferring money between accounts
-* 🎁 Interest/reward-based deposits
-* 🏦 Savings accounts with withdrawal fees
-* ⚠️ Handling insufficient-balance transactions using custom exceptions
+The project supports:
 
-The primary purpose of this project is to practice and demonstrate **Python Object-Oriented Programming concepts through a practical application**.
+* 🏦 Bank account creation
+* 💰 Balance management
+* 💵 Deposits
+* 💸 Withdrawals
+* 🔄 Money transfers
+* 🎁 Interest/reward-based accounts
+* 💳 Savings accounts with withdrawal fees
+* ⚠️ Insufficient-balance exception handling
+
+The main goal of this project is to strengthen practical understanding of **Python OOP concepts** by implementing them in a real-world-inspired banking scenario.
 
 ---
 
 # 🎯 Project Objectives
 
-The project was created to practice:
+The project focuses on practicing:
 
 * 🧱 Classes and objects
-* 🔐 Encapsulation
 * 🧬 Inheritance
-* 🔄 Method overriding
 * 🎭 Polymorphism
+* 🔄 Method overriding
 * ⚠️ Custom exceptions
 * 🛡️ Exception handling
+* 📦 Python modules
 * 🔁 Reusable methods
-* 📦 Modular Python code
-* 💻 Practical OOP design
+* 💳 Transaction validation
 
 ---
 
 # 🏗️ Class Architecture
 
-The project uses a simple inheritance hierarchy:
+The project uses an inheritance hierarchy for different account types:
 
 ```text
                     🏦 BankAccount
                          │
                          │ Inheritance
                          ▼
-              🎁 InterestRewardsAcct
+              🎁 InterestRewwardsAcct
                          │
                          │ Inheritance
                          ▼
@@ -66,40 +67,41 @@ The base class representing a standard bank account.
 
 It provides functionality for:
 
-* Creating an account
-* Checking balance
+* Account creation
+* Balance checking
 * Depositing money
 * Withdrawing money
 * Transferring money
-* Validating transactions
+* Transaction validation
 
 ---
 
 ### 🎁 InterestRewwardsAcct
 
-A child class of `BankAccount`.
+This class inherits from `BankAccount`.
 
-It overrides the deposit behavior and provides an additional **1.5× reward amount** on deposits.
+It overrides the deposit method to provide an additional reward calculation when money is deposited.
 
-For example:
+Example:
 
 ```text
 Deposit = $100
 
-Reward deposit = $100 × 1.50
+Reward calculation
+$100 × 1.50 = $150
 
-Amount added = $150
+Amount added to balance = $150
 ```
-
-> 📌 Note: The class name `InterestRewwardsAcct` is kept as used in the original project.
 
 ---
 
 ### 💰 SavingsAcct
 
-A child class of `InterestRewwardsAcct`.
+This class inherits from `InterestRewwardsAcct`.
 
-It adds a withdrawal fee to savings-account transactions.
+It adds a withdrawal fee to transactions.
+
+Example:
 
 ```text
 Withdrawal = $100
@@ -108,7 +110,15 @@ Fee = $5
 Total deducted = $105
 ```
 
-This class demonstrates **multi-level inheritance**.
+This demonstrates **multi-level inheritance**:
+
+```text
+BankAccount
+     ↓
+InterestRewwardsAcct
+     ↓
+SavingsAcct
+```
 
 ---
 
@@ -121,102 +131,73 @@ class BalanceException(Exception):
     pass
 ```
 
-This exception is used when an account does not have enough balance to complete a transaction.
+`BalanceException` is used when an account does not have sufficient funds to complete a transaction.
 
-Example:
+For example, if an account has `$500` and attempts to withdraw `$1,000`, the transaction is interrupted instead of allowing the balance to become negative.
 
 ```text
-Sorry, account 'Blaze' only has a balance of $...
+⚠️ Transaction interrupted
+Insufficient account balance
 ```
-
-Instead of allowing the program to fail unexpectedly, the exception is caught and an understandable message is displayed.
 
 ---
 
-# 💳 Supported Operations
+# 💳 Banking Operations
 
-| Operation             | Description                                       |
-| --------------------- | ------------------------------------------------- |
-| 🆕 Account Creation   | Creates a new bank account                        |
-| 📊 Get Balance        | Displays current account balance                  |
-| 💵 Deposit            | Adds money to an account                          |
-| 💸 Withdrawal         | Removes money from an account                     |
-| 🔄 Transfer           | Transfers money between accounts                  |
-| 🎁 Reward Deposit     | Adds 1.5× the deposited amount                    |
-| 💰 Savings Withdrawal | Withdraws money plus a transaction fee            |
-| ⚠️ Balance Validation | Prevents transactions exceeding available balance |
-
----
-
-# 👥 Example Accounts
-
-The demonstration script creates several account types.
-
-### 👤 Dave
-
-```python
-Dave = BankAccount(1000, "Dave")
-```
-
-Standard bank account with an initial balance of `$1000`.
-
----
-
-### 👤 Sara
-
-```python
-Sara = BankAccount(2000, "Sara")
-```
-
-Standard bank account with an initial balance of `$2000`.
-
----
-
-### 👤 Jim
-
-```python
-Jim = InterestRewwardsAcct(1000, "Jim")
-```
-
-Interest/rewards account with an initial balance of `$1000`.
-
-Deposits receive the configured reward behavior.
-
----
-
-### 👤 Blaze
-
-```python
-Blaze = SavingsAcct(1000, "Blaze")
-```
-
-Savings account with a `$5` withdrawal fee.
+| Operation             | Description                                            |
+| --------------------- | ------------------------------------------------------ |
+| 🆕 Account Creation   | Creates a new account with an initial balance          |
+| 📊 Get Balance        | Displays the current account balance                   |
+| 💵 Deposit            | Adds money to an account                               |
+| 💸 Withdraw           | Removes money from an account                          |
+| 🔄 Transfer           | Transfers money between accounts                       |
+| 🎁 Reward Deposit     | Applies the reward calculation for the rewards account |
+| 💰 Savings Withdrawal | Applies a withdrawal fee                               |
+| ⚠️ Balance Validation | Prevents transactions exceeding available funds        |
 
 ---
 
 # 📁 Project Structure
 
 ```text
-python-oop-banking-system/
+OOP-Practice/
 │
-├── 📄 bank_account.py
-├── 📄 main.py
 ├── 📄 README.md
-└── 📄 .gitignore
+├── 🐍 bank_account.py
+└── 🐍 oop_project.py
 ```
 
 ### `bank_account.py`
 
-Contains:
+Contains the main banking classes:
 
-* `BalanceException`
-* `BankAccount`
-* `InterestRewwardsAcct`
-* `SavingsAcct`
+```text
+BalanceException
+BankAccount
+InterestRewwardsAcct
+SavingsAcct
+```
 
-### `main.py`
+This file contains the core banking logic.
 
-Contains the example program that creates accounts and performs banking operations.
+---
+
+### `oop_project.py`
+
+This file demonstrates how the banking classes are used.
+
+It creates accounts such as:
+
+```python
+Dave = BankAccount(1000, "Dave")
+Sara = BankAccount(2000, "Sara")
+
+Jim = InterestRewwardsAcct(1000, "Jim")
+
+Blaze = SavingsAcct(1000, "Blaze")
+```
+
+It then performs different banking operations such as deposits, withdrawals, and transfers.
 
 ---
 
@@ -226,7 +207,7 @@ You only need:
 
 * 🐍 Python 3.x
 * 💻 Terminal / Command Prompt
-* 📝 Any Python-compatible code editor
+* 📝 A Python-compatible code editor
 
 Check your Python installation:
 
@@ -234,7 +215,7 @@ Check your Python installation:
 python --version
 ```
 
-or:
+Or on Linux:
 
 ```bash
 python3 --version
@@ -247,59 +228,59 @@ python3 --version
 ## 1️⃣ Clone the Repository
 
 ```bash
-git clone <YOUR-GITHUB-REPOSITORY-URL>
+git clone https://github.com/jupiterian23/OOP-Practice.git
 ```
 
 ## 2️⃣ Enter the Project Directory
 
 ```bash
-cd python-oop-banking-system
+cd OOP-Practice
 ```
 
-## 3️⃣ Run the Program
+## 3️⃣ Run the Project
 
 ```bash
-python main.py
+python oop_project.py
 ```
 
-On some Linux systems:
+On Linux systems:
 
 ```bash
-python3 main.py
+python3 oop_project.py
 ```
+
+The program will create sample accounts and execute different banking transactions.
 
 ---
 
-# 🧪 Example Workflow
-
-The demonstration program performs operations such as:
+# 🔄 Example Transaction Flow
 
 ```text
-🏦 Create Dave's account
-🏦 Create Sara's account
-
-📊 Check balances
-
-💵 Deposit money into Sara's account
-
-💸 Withdraw money from Dave's account
-
-🔄 Transfer money from Dave to Sara
-
-🎁 Create Jim's rewards account
-
-💵 Deposit money into Jim's account
-
-🔄 Transfer money from Jim to Dave
-
-💰 Create Blaze's savings account
-
-💵 Deposit money into Blaze's account
-
-🔄 Attempt a large transfer from Blaze
+        🏦 Create Account
+               │
+               ▼
+        📊 Check Balance
+               │
+               ▼
+          💵 Deposit
+               │
+               ▼
+         💸 Withdraw
+               │
+               ▼
+         🔄 Transfer
+               │
+               ▼
+       🔍 Validate Balance
+               │
+        ┌──────┴──────┐
+        │             │
+     Enough        Not Enough
+        │             │
+        ▼             ▼
+   ✅ Complete     ⚠️ Exception
+   Transaction     Handling
 ```
-
-The final transaction demonstrates the project's **balance validation and exception handling**.
 
 ---
 
@@ -307,9 +288,9 @@ The final transaction demonstrates the project's **balance validation and except
 
 ## 1. 🧱 Classes & Objects
 
-Classes define the structure and behavior of accounts.
+Classes define the structure and behavior of bank accounts.
 
-Objects represent individual customers/accounts.
+Objects represent individual accounts.
 
 ```python
 Dave = BankAccount(1000, "Dave")
@@ -320,7 +301,7 @@ Sara = BankAccount(2000, "Sara")
 
 ## 2. 🧬 Inheritance
 
-Specialized account types inherit functionality from the base account:
+Specialized account types inherit functionality from the base class.
 
 ```text
 BankAccount
@@ -330,21 +311,24 @@ InterestRewwardsAcct
 SavingsAcct
 ```
 
-This reduces code duplication and allows specialized behavior.
+This allows common banking functionality to be reused.
 
 ---
 
 ## 3. 🔄 Method Overriding
 
-`InterestRewwardsAcct` overrides the `deposite()` method to change how deposits are calculated.
+The child classes modify inherited behavior.
 
-`SavingsAcct` overrides `withdraw()` to include a withdrawal fee.
+For example:
+
+* `InterestRewwardsAcct` changes the deposit behavior.
+* `SavingsAcct` changes the withdrawal behavior by adding a fee.
 
 ---
 
 ## 4. 🎭 Polymorphism
 
-Different account classes can use methods with the same name while implementing different behaviors.
+Different account types can use methods with the same name while implementing different behavior.
 
 For example:
 
@@ -352,56 +336,78 @@ For example:
 account.deposite(amount)
 ```
 
-can behave differently depending on the account type.
+can produce different results depending on the account type.
 
 ---
 
 ## 5. ⚠️ Custom Exceptions
 
-`BalanceException` provides a dedicated exception type for insufficient account balance.
+The project defines its own exception:
+
+```python
+BalanceException
+```
+
+This provides a specific way to handle insufficient funds.
 
 ---
 
 ## 6. 🛡️ Exception Handling
 
-The project uses:
+Transactions are protected using `try` and `except` blocks.
 
 ```python
 try:
     ...
-except BalanceException:
+except BalanceException as error:
     ...
 ```
 
-to safely handle failed transactions.
+This prevents failed transactions from crashing the program.
 
 ---
 
-# 🔄 Transaction Flow
+# 👥 Sample Accounts
 
-```text
-             💳 Transaction
-                    │
-                    ▼
-          🔍 Check Available Balance
-                    │
-             ┌──────┴──────┐
-             │             │
-          Enough         Not Enough
-             │             │
-             ▼             ▼
-        ✅ Process      ⚠️ Exception
-        Transaction     BalanceException
-             │
-             ▼
-       📊 New Balance
+The demonstration program uses different account types.
+
+### 👤 Dave
+
+```python
+Dave = BankAccount(1000, "Dave")
 ```
+
+Standard bank account.
+
+### 👤 Sara
+
+```python
+Sara = BankAccount(2000, "Sara")
+```
+
+Standard bank account.
+
+### 👤 Jim
+
+```python
+Jim = InterestRewwardsAcct(1000, "Jim")
+```
+
+Rewards-based account.
+
+### 👤 Blaze
+
+```python
+Blaze = SavingsAcct(1000, "Blaze")
+```
+
+Savings account with a withdrawal fee.
 
 ---
 
 # 📚 What I Learned
 
-By building this project, I practiced:
+Building this project helped me practice:
 
 * 🐍 Python programming
 * 🧱 Object-Oriented Programming
@@ -409,37 +415,35 @@ By building this project, I practiced:
 * 🎭 Polymorphism
 * 🔄 Method overriding
 * ⚠️ Custom exceptions
-* 🛡️ Error handling
+* 🛡️ Exception handling
 * 📦 Python modules
-* 🔁 Reusable class methods
-* 💻 Building a practical console application
+* 🔁 Reusable code
+* 💳 Transaction logic
 
 ---
 
-# 🚀 Possible Future Improvements
+# 🚀 Future Improvements
 
-The current project is intentionally simple and focused on OOP fundamentals.
+Possible improvements for a future version include:
 
-Future improvements could include:
-
-* 🔐 PIN/password authentication
+* 🔐 PIN-based authentication
 * 👥 Customer management
 * 🧾 Transaction history
 * 💾 Database integration
-* 🖥️ GUI interface
 * 🌐 REST API
+* 🖥️ GUI interface
+* 🧪 Unit testing
+* 🔒 Improved input validation
 * 📊 Account statements
-* 🔒 Improved security and validation
-* 🧪 Automated unit tests
-* 🐳 Docker containerization
+* 🐳 Docker support
 
 ---
 
 # ⚠️ Disclaimer
 
-This is an **educational Python project** created to demonstrate programming and OOP concepts.
+This project is created for **educational purposes** to demonstrate Python programming and Object-Oriented Programming concepts.
 
-It is **not intended for handling real financial transactions or production banking systems**.
+It is **not intended for real-world financial transactions or production banking systems**.
 
 ---
 
@@ -449,26 +453,29 @@ It is **not intended for handling real financial transactions or production bank
 
 🎓 BCA Student
 ☁️ Aspiring Cloud Engineer
-🐍 Python • AWS • Linux • Networking • Terraform • Docker • Kubernetes
 
-🔗 GitHub: **jupiterian23**
+**Skills & Technologies:**
+
+`Python` • `AWS` • `Linux` • `Networking` • `Terraform` • `Docker` • `Kubernetes` • `DevOps`
+
+🐙 GitHub: [jupiterian23](https://github.com/jupiterian23)
 
 ---
 
-## ⭐ Project Highlights
+## ⭐ Project Summary
 
 ```text
 🐍 Python
-        +
+   +
 🧱 OOP
-        +
+   +
 🧬 Inheritance
-        +
+   +
 🎭 Polymorphism
-        +
+   +
 ⚠️ Exception Handling
-        ↓
+   ↓
 🏦 Banking System
 ```
 
-**Built to learn Python OOP through practical implementation. 🚀**
+**Built to practice Python OOP through a practical banking application. 🚀**
